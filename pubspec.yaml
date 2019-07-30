@@ -1,0 +1,27 @@
+name: notes
+description: A notes built with flutter
+
+version: 0.0.4+1
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^0.1.2
+  flutter_staggered_grid_view: ^0.3.0
+  auto_size_text: ^2.0.2
+  sqflite:
+  path:
+  intl: ^0.15.8
+  share: ^0.6.2
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+
+flutter:
+  uses-material-design: true
