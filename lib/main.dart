@@ -11,15 +11,12 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Заметки',
       theme: ThemeData(
-        fontFamily: "Roboto",
-        iconTheme: IconThemeData(color: Colors.black),
-        primaryTextTheme: TextTheme(
-          title: TextStyle(color: Colors.black),
-        ),
-        primarySwatch: Colors.blue,
-      ),
+          fontFamily: "Roboto",
+          iconTheme: IconThemeData(color: Color.fromARGB(255, 59, 73, 73)),
+          primaryColor: Color.fromARGB(255, 59, 73, 73),
+          accentColor: Color.fromARGB(255, 59, 73, 73),
+          textSelectionColor: Color.fromARGB(50, 59, 73, 73)),
       home: HomePage(),
-
     );
   }
 }

@@ -3,7 +3,7 @@ import 'Note.dart';
 import 'SQLiteHandler.dart';
 import 'dart:async';
 import 'Utility.dart';
-import 'MoreOptionsSheet.dart';
+import 'MoreOptions.dart';
 import 'package:share/share.dart';
 import 'package:flutter/services.dart';
 
@@ -31,7 +31,7 @@ class _NotePageState extends State<NotePage> {
   var _editableNote;
   Timer _persistenceTimer;
 
-  final GlobalKey<ScaffoldState> _globalKey = new GlobalKey<ScaffoldState>();
+  final _globalKey = new GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -51,15 +51,15 @@ class _NotePageState extends State<NotePage> {
 
   @override
   Widget build(BuildContext context) {
-    if (_editableNote.id == -1 && _editableNote.title.isEmpty)
-      FocusScope.of(context).requestFocus(_titleFocus);
+//    if (_editableNote.id == -1 && _editableNote.title.isEmpty)
+//      FocusScope.of(context).requestFocus(_titleFocus);
     return WillPopScope(
       child: Scaffold(
         key: _globalKey,
         appBar: AppBar(
           brightness: Brightness.light,
           leading: BackButton(
-            color: Colors.black87,
+            color: CentralStation.fontColor,
           ),
           actions: _archiveAction(context),
           elevation: 3,
@@ -80,38 +80,36 @@ class _NotePageState extends State<NotePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              Flexible(
-                child: Container(
-                  padding: EdgeInsets.all(5),
-//            decoration: BoxDecoration(border: Border.all(color: CentralStation.borderColor,width: 1 ),borderRadius: BorderRadius.all(Radius.circular(10)) ),
-                  child: EditableText(
-                      onChanged: (str) => {updateNoteObject()},
-                      maxLines: 1,
-                      controller: _titleController,
-                      focusNode: _titleFocus,
-                      style: TextStyle(
-                          color: Colors.black87,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
-                      cursorColor: Colors.blue,
-                      backgroundCursorColor: Colors.blue), //blue
+              TextField(
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+//                    color: Colors.blue
                 ),
+                decoration: InputDecoration(
+                  labelText: "Заголовок",
+                  border: OutlineInputBorder(),
+//                    focusColor: Color.fromARGB(255, 59, 73, 73),
+                ),
+                onChanged: (str) => {updateNoteObject()},
+                controller: _titleController,
+                focusNode: _titleFocus,
               ),
-              Divider(color: CentralStation.borderColor),
-              Flexible(
-                child: Container(
-                  padding: EdgeInsets.all(5),
-              decoration: BoxDecoration(border: Border.all(color: CentralStation.borderColor,width: 1 ),borderRadius: BorderRadius.all(Radius.circular(10)) ),
-                  child: EditableText(
-                      onChanged: (str) => {updateNoteObject()},
-                      maxLines: 500,
-                      controller: _contentController,
-                      focusNode: _contentFocus,
-                      style: TextStyle(color: Colors.black87, fontSize: 18),
-                      cursorColor: Colors.blue,
-                      backgroundCursorColor: Colors.blue),
+              Divider(),
+              TextField(
+                maxLines: null,
+                keyboardType: TextInputType.multiline,
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+//                    color: CentralStation.fontColor
                 ),
-              )
+                decoration: InputDecoration(
+                    labelText: "Текст заметки", border: OutlineInputBorder()),
+                onChanged: (str) => {updateNoteObject()},
+                controller: _contentController,
+                focusNode: _contentFocus,
+              ),
             ],
           ),
           left: true,
@@ -122,48 +120,38 @@ class _NotePageState extends State<NotePage> {
   }
 
   Widget pageTitle() {
-    return Text(_editableNote.id == -1 ? "Новая заметка" : "Редактировать");
+    return Text(
+      _editableNote.id == -1 ? "Новая заметка" : "Редактировать",
+      style: TextStyle(color: Color.fromARGB(255, 59, 73, 73)),
+    );
   }
 
   List<Widget> _archiveAction(BuildContext context) {
     List<Widget> actions = [];
     if (widget.noteInEditing.id != -1) {
-      actions.add(Padding(
-        padding: EdgeInsets.symmetric(horizontal: 12),
-        child: InkWell(
-          child: GestureDetector(
-            onTap: () => _undo(),
-            child: Icon(
-              Icons.undo,
-              color: CentralStation.fontColor,
-            ),
+      actions.add(
+        IconButton(
+          onPressed: () => _undo(),
+          icon: Icon(
+            Icons.undo,
+            color: CentralStation.fontColor,
           ),
         ),
-      ));
+      );
     }
     actions += [
-      Padding(
-        padding: EdgeInsets.symmetric(horizontal: 12),
-        child: InkWell(
-          child: GestureDetector(
-            onTap: () => _archivePopup(context),
-            child: Icon(
-              Icons.archive,
-              color: CentralStation.fontColor,
-            ),
-          ),
+      IconButton(
+        onPressed: () => _archivePopup(context),
+        icon: Icon(
+          Icons.archive,
+          color: CentralStation.fontColor,
         ),
       ),
-      Padding(
-        padding: EdgeInsets.symmetric(horizontal: 12),
-        child: InkWell(
-          child: GestureDetector(
-            onTap: () => bottomSheet(context),
-            child: Icon(
-              Icons.more_vert,
-              color: CentralStation.fontColor,
-            ),
-          ),
+      IconButton(
+        onPressed: () => bottomSheet(context),
+        icon: Icon(
+          Icons.more_vert,
+          color: CentralStation.fontColor,
         ),
       ),
     ];
@@ -228,11 +216,6 @@ class _NotePageState extends State<NotePage> {
           if (_editableNote.content.isNotEmpty) {
             Share.share("${_editableNote.title}\n${_editableNote.content}");
           }
-          break;
-        }
-      case moreOptions.copy:
-        {
-          _copy();
           break;
         }
     }
@@ -329,22 +312,6 @@ class _NotePageState extends State<NotePage> {
 
     Navigator.of(context).pop();
     // TODO: OPTIONAL show the toast of deletion completion
-    Scaffold.of(context)
-        .showSnackBar(new SnackBar(content: Text("Заметка удалена")));
-  }
-
-  void _copy() {
-    var noteDB = NotesDBHandler();
-    Note copy = Note(-1, _editableNote.title, _editableNote.content,
-        DateTime.now(), DateTime.now(), _editableNote.noteColor);
-
-    var status = noteDB.copyNote(copy);
-    status.then((querySuccess) {
-      if (querySuccess) {
-        CentralStation.updateNeeded = true;
-        Navigator.of(_globalKey.currentContext).pop();
-      }
-    });
   }
 
   void _undo() {
@@ -353,5 +320,10 @@ class _NotePageState extends State<NotePage> {
         _contentFromInitial; // widget.noteInEditing.content;
     _editableNote.dateEdited =
         _lastEdited; // widget.noteInEditing.date_last_edited;
+    final snackbar = SnackBar(
+        content: Text("Действие отменено"),
+        action: SnackBarAction(label: "Ок", onPressed: () {}),
+        duration: Duration(seconds: 3));
+    _globalKey.currentState.showSnackBar(snackbar);
   }
 }

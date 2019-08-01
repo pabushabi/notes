@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'StaggeredView.dart';
+import 'SView.dart';
 import 'Note.dart';
 import 'NotePage.dart';
 import 'Utility.dart';
@@ -13,6 +13,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   var notesViewType;
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -22,12 +23,13 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomPadding: true,
+        key: _scaffoldKey,
+        resizeToAvoidBottomInset: true,
         appBar: AppBar(
-            brightness: Brightness.light,
-            actions: _appBarActions(),
+            brightness: Brightness.dark,
+            actions: _appBarActions(context),
             elevation: 3,
-            backgroundColor: Colors.white,
+//            backgroundColor: Color.fromARGB(255, 59, 73, 73),
             centerTitle: true,
             title: Text("Заметки")),
         body: SafeArea(
@@ -37,25 +39,16 @@ class _HomePageState extends State<HomePage> {
           top: true,
           bottom: true,
         ),
-        bottomSheet: _bottomBar());
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => _newNoteTapped(context),
+          child: Icon(Icons.add),
+//          backgroundColor: Color.fromARGB(255, 59, 73, 73),
+        ));
   }
 
   Widget _body() {
 //    print(notesViewType);
     return Container(child: StaggeredGridPage(notesViewType: notesViewType));
-  }
-
-  Widget _bottomBar() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        FlatButton(
-            child: Text("Новая заметка",
-                style:
-                    TextStyle(color: Colors.grey, fontWeight: FontWeight.bold)),
-            onPressed: () => _newNoteTapped(context)),
-      ],
-    );
   }
 
   void _newNoteTapped(BuildContext ctx) {
@@ -73,22 +66,34 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  List<Widget> _appBarActions() {
+  List<Widget> _appBarActions(BuildContext ctx) {
     return [
-      Padding(
-        padding: EdgeInsets.symmetric(horizontal: 12),
-        child: InkWell(
-          child: GestureDetector(
-            onTap: () => _toggleViewType(),
-            child: Icon(
-              notesViewType == viewType.List
-                  ? Icons.dashboard
-                  : Icons.view_agenda,
-              color: CentralStation.fontColor,
-            ),
-          ),
+      IconButton(
+        onPressed: () {
+          /*TODO: search*/
+          final snackbar =
+              SnackBar(
+                  content: Text("Feature isn't implemented yet"),
+                  action: SnackBarAction(
+                      label: "Ясно",
+                      onPressed: () {}
+                  ),
+                  duration: Duration(seconds: 3)
+              );
+          _scaffoldKey.currentState.showSnackBar(snackbar);
+        },
+        icon: Icon(
+          Icons.search,
+          color: Colors.white,
         ),
-      )
+      ),
+      IconButton(
+        onPressed: () => _toggleViewType(),
+        icon: Icon(
+          notesViewType == viewType.List ? Icons.dashboard : Icons.view_agenda,
+          color: Colors.white,
+        ),
+      ),
     ];
   }
 }

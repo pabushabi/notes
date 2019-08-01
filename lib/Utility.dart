@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class CentralStation {
   static bool _updateNeeded;
-  static final fontColor = Color(0xff595959);
+  static final fontColor = Color.fromARGB(255, 59, 73, 73);
   static final borderColor = Color(0xffe1e1e1);
 
   static init() {
