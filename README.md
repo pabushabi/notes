@@ -2,14 +2,17 @@
 
 A notes built with flutter
 
-## Getting Started
+## Screenshots
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+### Home page
+![home page](/docs/imgs/notes_home.png "Home Page")
+![home page](/docs/imgs/notes_home2.png "Home Page2")
+### New note 
+![login page](/docs/imgs/notes_new.png "New note")
+### More options
+![404 page](/docs/imgs/notes_more.png "More options")
+### Edit note
+![404 page](/docs/imgs/notes_edit.png "Edit note")
 
 For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
