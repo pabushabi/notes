@@ -91,9 +91,10 @@ class _NotePageState extends State<NotePage> {
                   border: OutlineInputBorder(),
 //                    focusColor: Color.fromARGB(255, 59, 73, 73),
                 ),
-                onChanged: (str) => {updateNoteObject()},
+                onChanged: (str) => updateNoteObject(),
                 controller: _titleController,
                 focusNode: _titleFocus,
+                textCapitalization: TextCapitalization.sentences,
               ),
               Divider(),
               TextField(
@@ -106,9 +107,11 @@ class _NotePageState extends State<NotePage> {
                 ),
                 decoration: InputDecoration(
                     labelText: "Текст заметки", border: OutlineInputBorder()),
-                onChanged: (str) => {updateNoteObject()},
+                onChanged: (str) => updateNoteObject(),
                 controller: _contentController,
                 focusNode: _contentFocus,
+                textCapitalization: TextCapitalization.sentences,
+                maxLength: 2500,
               ),
             ],
           ),
@@ -231,7 +234,7 @@ class _NotePageState extends State<NotePage> {
               content: Text("Это действие нельзя обратить"),
               actions: <Widget>[
                 FlatButton(
-                    onPressed: () => {Navigator.of(context).pop()},
+                    onPressed: () => Navigator.of(context).pop(),
                     child: Text("Нет")),
                 FlatButton(
                     onPressed: () {
@@ -283,7 +286,7 @@ class _NotePageState extends State<NotePage> {
               content: Text("Заметка будет добавлена в архив"),
               actions: <Widget>[
                 FlatButton(
-                    onPressed: () => {Navigator.of(context).pop()},
+                    onPressed: () => Navigator.of(context).pop(),
                     child: Text("Нет")),
                 FlatButton(
                     onPressed: () => _archiveThisNote(context),

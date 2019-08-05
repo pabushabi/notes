@@ -7,12 +7,10 @@ A notes built with flutter
 ### Home page
 ![home page](/docs/imgs/notes_home.png "Home Page")
 ![home page](/docs/imgs/notes_home2.png "Home Page2")
-### New note 
-![login page](/docs/imgs/notes_new.png "New note")
-### More options
-![404 page](/docs/imgs/notes_more.png "More options")
-### Edit note
-![404 page](/docs/imgs/notes_edit.png "Edit note")
+### New, edit note & more opts
+![new note](/docs/imgs/notes_new.png "New note")
+![edit note](/docs/imgs/notes_edit.png "Edit note")
+![more options](/docs/imgs/notes_more.png "More options")
 
 For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,

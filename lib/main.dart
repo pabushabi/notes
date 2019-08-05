@@ -14,9 +14,11 @@ class MyApp extends StatelessWidget {
           fontFamily: "Roboto",
           iconTheme: IconThemeData(color: Color.fromARGB(255, 59, 73, 73)),
           primaryColor: Color.fromARGB(255, 59, 73, 73),
-          accentColor: Color.fromARGB(255, 59, 73, 73),
+          accentColor: Color.fromARGB(255, 246, 85, 85),
+//          accentColor: Color.fromARGB(255, 59, 73, 73),
           textSelectionColor: Color.fromARGB(50, 59, 73, 73)),
       home: HomePage(),
+      navigatorObservers: [routeObserver],
     );
   }
 }
