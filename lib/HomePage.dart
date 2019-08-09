@@ -6,6 +6,7 @@ import 'Utility.dart';
 import 'dart:async';
 
 enum viewType { List, Staggered }
+
 final routeObserver = RouteObserver<PageRoute>();
 
 class HomePage extends StatefulWidget {
@@ -13,7 +14,7 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with RouteAware{
+class _HomePageState extends State<HomePage> with RouteAware {
   var notesViewType;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   bool _fabVis = true;
@@ -34,7 +35,6 @@ class _HomePageState extends State<HomePage> with RouteAware{
 
   @override
   didPopNext() {
-    // Show back the FAB on transition back ended
     Timer(duration, () {
       setState(() => _fabVis = true);
     });
@@ -54,7 +54,6 @@ class _HomePageState extends State<HomePage> with RouteAware{
             brightness: Brightness.dark,
             actions: _appBarActions(context),
             elevation: 3,
-//            backgroundColor: Color.fromARGB(255, 59, 73, 73),
             centerTitle: true,
             title: Text("Заметки")),
         body: SafeArea(
@@ -72,12 +71,10 @@ class _HomePageState extends State<HomePage> with RouteAware{
         onPressed: () => _newNoteTapped(context),
         key: key,
         child: Icon(Icons.add),
-//          backgroundColor: Color.fromARGB(255, 59, 73, 73),
-//          backgroundColor: Colors.white,
       );
 
   Widget _body() {
-    return Container(child: StaggeredGridPage(notesViewType: notesViewType));
+    return StaggeredGridPage(notesViewType: notesViewType);
   }
 
   void _newNoteTapped(BuildContext ctx) {
@@ -90,9 +87,6 @@ class _HomePageState extends State<HomePage> with RouteAware{
 
     var emptyNote =
         new Note(-1, "", "", DateTime.now(), DateTime.now(), Colors.white);
-//        new Note(-1, "", "", DateTime.now(), DateTime.now(), Color.fromARGB(255, 246, 85, 85));
-//    Navigator.push(
-//        ctx, MaterialPageRoute(builder: (ctx) => NotePage(emptyNote)));
     Navigator.push(
         ctx,
         PageRouteBuilder(

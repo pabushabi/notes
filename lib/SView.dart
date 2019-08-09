@@ -33,7 +33,6 @@ class _StaggeredGridPageState extends State<StaggeredGridPage> {
   @override Widget build(BuildContext context) {
     GlobalKey _stagKey = GlobalKey();
 
-//    print("update needed?: ${CentralStation.updateNeeded}");
     if (CentralStation.updateNeeded) retrieveAllNotesFromDB();
     return Container(
         child: Padding(padding: _paddingForView(context),
@@ -72,10 +71,8 @@ class _StaggeredGridPageState extends State<StaggeredGridPage> {
         .size
         .width;
     double padding;
-    double topBottom = 4;
     padding = width > 500 ? width * 0.05 : 8;
-    return EdgeInsets.only(
-        left: padding, right: padding, top: topBottom, bottom: topBottom);
+    return EdgeInsets.fromLTRB(padding, 0, padding, 0);
   }
 
   MyStaggeredTile _tileGenerator(int i) {

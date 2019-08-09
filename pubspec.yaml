@@ -1,7 +1,7 @@
 name: notes
 description: A notes built with flutter
 
-version: 0.0.5+1
+version: 0.0.6+3
 
 environment:
   sdk: ">=2.1.0 <3.0.0"

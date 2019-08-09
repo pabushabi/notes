@@ -84,12 +84,10 @@ class _NotePageState extends State<NotePage> {
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
-//                    color: Colors.blue
                 ),
                 decoration: InputDecoration(
                   labelText: "Заголовок",
                   border: OutlineInputBorder(),
-//                    focusColor: Color.fromARGB(255, 59, 73, 73),
                 ),
                 onChanged: (str) => updateNoteObject(),
                 controller: _titleController,
@@ -103,7 +101,6 @@ class _NotePageState extends State<NotePage> {
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-//                    color: CentralStation.fontColor
                 ),
                 decoration: InputDecoration(
                     labelText: "Текст заметки", border: OutlineInputBorder()),
