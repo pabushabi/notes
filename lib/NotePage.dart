@@ -77,8 +77,8 @@ class _NotePageState extends State<NotePage> {
       color: noteColor,
       padding: EdgeInsets.only(left: 16, right: 16, top: 12, bottom: 12),
       child: SafeArea(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+          child: ListView(
+//            mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               TextField(
                 style: TextStyle(
@@ -87,7 +87,8 @@ class _NotePageState extends State<NotePage> {
                 ),
                 decoration: InputDecoration(
                   labelText: "Заголовок",
-                  border: OutlineInputBorder(),
+                  floatingLabelBehavior: FloatingLabelBehavior.never,
+                  border: InputBorder.none,
                 ),
                 onChanged: (str) => updateNoteObject(),
                 controller: _titleController,
@@ -95,7 +96,9 @@ class _NotePageState extends State<NotePage> {
                 textCapitalization: TextCapitalization.sentences,
               ),
               Divider(),
-              TextField(
+              SizedBox(
+
+                child: TextField(
                 maxLines: null,
                 keyboardType: TextInputType.multiline,
                 style: TextStyle(
@@ -103,13 +106,16 @@ class _NotePageState extends State<NotePage> {
                   fontWeight: FontWeight.bold,
                 ),
                 decoration: InputDecoration(
-                    labelText: "Текст заметки", border: OutlineInputBorder()),
+                    labelText: "Текст заметки",
+                    border: InputBorder.none,
+                    floatingLabelBehavior: FloatingLabelBehavior.never,
+                ),
                 onChanged: (str) => updateNoteObject(),
                 controller: _contentController,
                 focusNode: _contentFocus,
                 textCapitalization: TextCapitalization.sentences,
                 maxLength: 2500,
-              ),
+              ),),
             ],
           ),
           left: true,
